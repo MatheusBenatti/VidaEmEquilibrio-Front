@@ -3,7 +3,7 @@ import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import HomePsicologo from './pages/HomePsicologo';
 import HomePaciente from './pages/HomePaciente';
-import AdicionarPaciente from './pages/AdicionarPaciente'; // criar depois
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -11,8 +11,16 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
-        <Route path="/home-psicologo" element={<HomePsicologo />} />
-        <Route path="/home-paciente" element={<HomePaciente />} />
+        <Route path="/home-psicologo" element={
+          <ProtectedRoute tipoPermitido="psicologo">
+            <HomePsicologo />
+          </ProtectedRoute>
+        } />
+        <Route path="/home-paciente" element={
+          <ProtectedRoute tipoPermitido="paciente">
+            <HomePaciente />
+          </ProtectedRoute>
+        } />
         <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

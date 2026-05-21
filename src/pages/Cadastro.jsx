@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
+import '../styles/Cadastro.css';
 
 function Cadastro() {
   const [nome, setNome] = useState('');

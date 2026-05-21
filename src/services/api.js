@@ -38,17 +38,15 @@ export const authService = {
     
     // Adicionar paciente (psicólogo)
     adicionarPaciente: (email, nome) =>
-      api.post(`${API_URL}adicionar-paciente/`, {
-        email,
-        nome,
-      }),
+      api.post('adicionar-paciente/', { email, nome }),
+    
+    // Listar pacientes do psicólogo logado
+    meusPacientes: () =>
+      api.get('meus-pacientes/'),
     
     // Mudar senha
     mudarSenha: (senha_atual, nova_senha) =>
-      api.post(`${API_URL}mudar-senha/`, {
-        senha_atual,
-        nova_senha,
-      }),
+      api.post('mudar-senha/', { senha_atual, nova_senha }),
     
     logout: () => {
       localStorage.removeItem('token');

@@ -14,7 +14,7 @@ function Login() {
     e.preventDefault();
     try {
       const response = await authService.login(email, senha);
-      const { token, id, nome, email: emailResp, tipo, crp } = response.data;
+      const { token, id, nome, username, tipo, crp, primeira_senha } = response.data;
 
       // Salva token
       localStorage.setItem('token', token);
@@ -23,9 +23,10 @@ function Login() {
       localStorage.setItem('userInfo', JSON.stringify({
         id,
         nome,
-        email: emailResp,
+        email: username,
         tipo,
         crp,
+        primeira_senha,
       }));
 
       // Se marcou "lembrar", salva email

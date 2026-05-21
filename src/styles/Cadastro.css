@@ -1,0 +1,79 @@
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.cadastro-box {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.cadastro-box h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.cadastro-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cadastro-box input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.cadastro-box button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cadastro-box button:hover {
+  background: #0056b3;
+}
+
+.cadastro-box .erro {
+  color: #e74c3c;
+  background: #fdf0ef;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.cadastro-box .sucesso {
+  color: #27ae60;
+  background: #eafaf1;
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.cadastro-box p {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.cadastro-box a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.cadastro-box a:hover {
+  text-decoration: underline;
+}
