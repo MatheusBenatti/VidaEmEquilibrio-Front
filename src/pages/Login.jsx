@@ -14,17 +14,31 @@ function Login() {
     e.preventDefault();
     try {
       const response = await authService.login(email, senha);
-      const token = response.data.token;
+      const { token, id, nome, email: emailResp, tipo, crp } = response.data;
 
       // Salva token
       localStorage.setItem('token', token);
+
+      // Salva dados do usuário
+      localStorage.setItem('userInfo', JSON.stringify({
+        id,
+        nome,
+        email: emailResp,
+        tipo,
+        crp,
+      }));
 
       // Se marcou "lembrar", salva email
       if (lembrar) {
         localStorage.setItem('email', email);
       }
 
-      navigate('/home');
+      // Redireciona baseado no tipo
+      if (tipo === 'psicologo') {
+        navigate('/home-psicologo');
+      } else if (tipo === 'paciente') {
+        navigate('/home-paciente');
+      }
     } catch (error) {
       setErro('Email ou senha inválidos');
     }

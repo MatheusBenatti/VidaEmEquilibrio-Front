@@ -14,23 +14,46 @@ api.interceptors.request.use(config => {
   return config;
 });
 
-
 export const authService = {
+    // Endpoint unificado de login
     login: (email, senha) =>
-    axios.post(`${API_URL}login/`, {
-      email,
-      senha,
-    }),
-
-    cadastro: (nome, email, senha, crp) => 
-        api.post('psicologos/', {
-            nome,
-            email,
-            senha,
-            crp,
-        }),
-
-    logout: () => localStorage.removeItem('token'),
+      axios.post(`${API_URL}login/`, { email, senha }),
+    
+    // Registro de psicólogo
+    registroPsicologo: (nome, email, senha, crp) =>
+      axios.post(`${API_URL}registrar-psicologo/`, {
+        nome,
+        username: email,
+        password: senha,
+        crp,
+      }),
+    
+    // Registro de paciente
+    registroPaciente: (nome, email, senha) =>
+      axios.post(`${API_URL}registrar-paciente/`, {
+        nome,
+        username: email,
+        password: senha,
+      }),
+    
+    // Adicionar paciente (psicólogo)
+    adicionarPaciente: (email, nome) =>
+      api.post(`${API_URL}adicionar-paciente/`, {
+        email,
+        nome,
+      }),
+    
+    // Mudar senha
+    mudarSenha: (senha_atual, nova_senha) =>
+      api.post(`${API_URL}mudar-senha/`, {
+        senha_atual,
+        nova_senha,
+      }),
+    
+    logout: () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userInfo');
+    },
 };
 
 export default api;

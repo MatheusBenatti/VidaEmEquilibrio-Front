@@ -14,7 +14,7 @@ function Cadastro() {
   const handleCadastro = async (e) => {
     e.preventDefault();
     try {
-      await authService.cadastro(nome, email, senha, crp);
+      await authService.registroPsicologo(nome, email, senha, crp);
       setSucesso('Cadastro realizado! Redirecionando para login...');
       setTimeout(() => navigate('/login'), 2000);
     } catch (error) {
