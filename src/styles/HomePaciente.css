@@ -34,17 +34,30 @@
 
 .welcome-content {
   text-align: center;
-  margin-top: 4rem;
+  margin-top: 3rem;
 }
 
 .welcome-content h2 {
   color: #2c3e50;
   font-size: 2rem;
+  margin-top: 1rem;
 }
 
 .welcome-content p {
   color: #7f8c8d;
   font-size: 1.1rem;
+}
+
+.avatar-display {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.avatar-home-svg {
+  width: 120px;
+  height: 168px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
 }
 
 .modal-overlay {

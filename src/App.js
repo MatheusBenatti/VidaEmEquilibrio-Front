@@ -4,6 +4,7 @@ import Cadastro from './pages/Cadastro';
 import HomePsicologo from './pages/HomePsicologo';
 import HomePaciente from './pages/HomePaciente';
 import ProtectedRoute from './components/ProtectedRoute';
+import ConfiguracaoPaciente from './pages/ConfiguracaoPaciente';
 
 function App() {
   return (
@@ -19,6 +20,11 @@ function App() {
         <Route path="/home-paciente" element={
           <ProtectedRoute tipoPermitido="paciente">
             <HomePaciente />
+          </ProtectedRoute>
+        } />
+        <Route path="/configurar-perfil" element={
+          <ProtectedRoute tipoPermitido="paciente">
+            <ConfiguracaoPaciente />
           </ProtectedRoute>
         } />
         <Route path="/" element={<Navigate to="/login" />} />

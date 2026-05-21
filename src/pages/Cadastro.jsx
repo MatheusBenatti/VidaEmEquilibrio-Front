@@ -32,7 +32,7 @@ function Cadastro() {
         <form onSubmit={handleCadastro}>
           <input
             type="text"
-            placeholder="Como quer ser chamado? ex: dra. Ana"
+            placeholder="Qual nome gostaria de ser chamado(a)?"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required

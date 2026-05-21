@@ -47,6 +47,10 @@ export const authService = {
     // Mudar senha
     mudarSenha: (senha_atual, nova_senha) =>
       api.post('mudar-senha/', { senha_atual, nova_senha }),
+
+    // Configurar perfil do paciente (avatar + nome)
+    configurarPerfil: (nome, avatar) =>
+      api.post('configurar-perfil/', { nome, avatar }),
     
     logout: () => {
       localStorage.removeItem('token');

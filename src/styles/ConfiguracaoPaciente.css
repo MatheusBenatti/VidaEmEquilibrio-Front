@@ -1,0 +1,144 @@
+.configuracao-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c3e50 0%, #3d5a80 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.configuracao-box {
+  background: white;
+  border-radius: 16px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+}
+
+.configuracao-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.configuracao-header h1 {
+  color: #2c3e50;
+  font-size: 1.6rem;
+  margin: 0 0 0.4rem;
+}
+
+.subtitulo {
+  color: #7f8c8d;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.campo-nome {
+  margin-bottom: 2rem;
+}
+
+.campo-nome label,
+.avatar-section label {
+  display: block;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.6rem;
+  font-size: 0.95rem;
+}
+
+.campo-nome input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.campo-nome input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.avatar-section {
+  margin-bottom: 1.5rem;
+}
+
+.avatares-grid {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 0.8rem;
+}
+
+.avatar-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1.2rem 1.5rem;
+  border: 3px solid #e0e0e0;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #f8f9fa;
+  min-width: 130px;
+  user-select: none;
+}
+
+.avatar-card:hover {
+  border-color: #3498db;
+  background: #eaf4fd;
+  transform: translateY(-3px);
+}
+
+.avatar-card.selecionado {
+  border-color: #3498db;
+  background: #eaf4fd;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.25);
+}
+
+.avatar-svg {
+  width: 90px;
+  height: 126px;
+}
+
+.avatar-card span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.erro {
+  color: #e74c3c;
+  background: #fdf0ef;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  text-align: center;
+}
+
+.btn-confirmar {
+  width: 100%;
+  padding: 14px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.btn-confirmar:hover {
+  background: #2980b9;
+}
+
+.btn-confirmar:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
+}
