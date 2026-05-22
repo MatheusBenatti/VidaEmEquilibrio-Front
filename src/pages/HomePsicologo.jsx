@@ -12,6 +12,9 @@ function HomePsicologo() {
   const [erro, setErro] = useState('');
   const [sucesso, setSucesso] = useState('');
   const [carregando, setCarregando] = useState(false);
+  const [modalRelatorio, setModalRelatorio] = useState(null);
+  const [relatos, setRelatos] = useState([]);
+  const [carregandoRelatos, setCarregandoRelatos] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,6 +54,20 @@ function HomePsicologo() {
       setErro(error.response?.data?.error || 'Erro ao adicionar paciente');
     } finally {
       setCarregando(false);
+    }
+  };
+
+  const handleVerRelatorio = async (paciente) => {
+    setModalRelatorio(paciente);
+    setRelatos([]);
+    setCarregandoRelatos(true);
+    try {
+      const response = await authService.relatosPaciente(paciente.id);
+      setRelatos(response.data.relatos);
+    } catch (error) {
+      console.error('Erro ao carregar relatos:', error);
+    } finally {
+      setCarregandoRelatos(false);
     }
   };
 
@@ -103,7 +120,7 @@ function HomePsicologo() {
                   <p>{paciente.email}</p>
                 </div>
               </div>
-              <button className="btn-relatorio">Relatório</button>
+              <button className="btn-relatorio" onClick={() => handleVerRelatorio(paciente)}>Relatório</button>
             </div>
           ))}
 
@@ -116,6 +133,43 @@ function HomePsicologo() {
           </div>
         </div>
       </div>
+
+      {modalRelatorio && (
+        <div className="modal-overlay" onClick={() => setModalRelatorio(null)}>
+          <div className="modal-relatorio" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-relatorio-header">
+              <h2>Relatos — {modalRelatorio.nome}</h2>
+              <button className="btn-fechar" onClick={() => setModalRelatorio(null)}>✕</button>
+            </div>
+            {carregandoRelatos ? (
+              <p className="relatorio-loading">Carregando relatos...</p>
+            ) : relatos.length === 0 ? (
+              <p className="relatorio-vazio">Nenhum relato registrado ainda.</p>
+            ) : (
+              <div className="relatorio-table-wrapper">
+                <table className="relatorio-table">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Data e Hora</th>
+                      <th>Relato</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {relatos.map((r, i) => (
+                      <tr key={r.id}>
+                        <td>{relatos.length - i}</td>
+                        <td className="td-data">{r.criado_em}</td>
+                        <td className="td-texto">{r.texto}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {mostrarModal && (
         <div className="modal-overlay" onClick={() => setMostrarModal(false)}>

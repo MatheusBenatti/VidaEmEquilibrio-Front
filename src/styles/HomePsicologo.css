@@ -266,3 +266,98 @@
   margin-bottom: 12px;
   font-size: 14px;
 }
+
+.modal-relatorio {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+.modal-relatorio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #e8ecf0;
+  background: #f8f9fa;
+}
+
+.modal-relatorio-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.btn-fechar {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #7f8c8d;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.btn-fechar:hover {
+  color: #e74c3c;
+}
+
+.relatorio-loading,
+.relatorio-vazio {
+  padding: 2rem;
+  text-align: center;
+  color: #7f8c8d;
+}
+
+.relatorio-table-wrapper {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.relatorio-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.relatorio-table thead th {
+  background: #2c3e50;
+  color: white;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+}
+
+.relatorio-table tbody tr:nth-child(even) {
+  background: #f8f9fa;
+}
+
+.relatorio-table tbody tr:hover {
+  background: #eaf4fd;
+}
+
+.relatorio-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #e8ecf0;
+  vertical-align: top;
+}
+
+.td-data {
+  white-space: nowrap;
+  color: #7f8c8d;
+  font-size: 0.8rem;
+  min-width: 120px;
+}
+
+.td-texto {
+  line-height: 1.5;
+  color: #2c3e50;
+}

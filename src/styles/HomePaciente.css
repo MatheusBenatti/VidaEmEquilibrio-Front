@@ -32,32 +32,123 @@
   cursor: pointer;
 }
 
-.welcome-content {
-  text-align: center;
-  margin-top: 3rem;
-}
-
-.welcome-content h2 {
-  color: #2c3e50;
-  font-size: 2rem;
-  margin-top: 1rem;
-}
-
-.welcome-content p {
-  color: #7f8c8d;
-  font-size: 1.1rem;
-}
-
-.avatar-display {
+.tamagochi-layout {
   display: flex;
-  justify-content: center;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+  gap: 2rem;
 }
 
-.avatar-home-svg {
-  width: 120px;
-  height: 168px;
-  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.15));
+.tamagochi-screen {
+  background: linear-gradient(160deg, #2c3e50 0%, #3d5a80 100%);
+  border-radius: 50%;
+  width: 280px;
+  height: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  box-shadow: 0 8px 32px rgba(44,62,80,0.35), inset 0 0 40px rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 0;
+}
+
+.tamagochi-nome {
+  position: absolute;
+  top: 1.1rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.tamagochi-avatar {
+  width: 180px;
+  height: 252px;
+  margin-bottom: -30px;
+  filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.3));
+}
+
+.relato-area {
+  width: 100%;
+  max-width: 480px;
+}
+
+.relato-area h3 {
+  color: #2c3e50;
+  font-size: 1rem;
+  margin: 0 0 0.8rem;
+  font-weight: 600;
+}
+
+.relato-area textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 14px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  background: white;
+  color: #2c3e50;
+}
+
+.relato-area textarea:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.12);
+}
+
+.relato-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.char-count {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.relato-footer .erro,
+.relato-footer .sucesso {
+  flex: 1;
+  margin: 0;
+  padding: 4px 10px;
+}
+
+.relato-footer button {
+  padding: 10px 24px;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.relato-footer button:hover {
+  background: #3d5166;
+}
+
+.relato-footer button:disabled {
+  background: #bdc3c7;
+  cursor: not-allowed;
 }
 
 .modal-overlay {

@@ -51,6 +51,13 @@ export const authService = {
     // Configurar perfil do paciente (avatar + nome)
     configurarPerfil: (nome, avatar) =>
       api.post('configurar-perfil/', { nome, avatar }),
+
+    // Relatos
+    salvarRelato: (texto) =>
+      api.post('salvar-relato/', { texto }),
+
+    relatosPaciente: (pacienteId) =>
+      api.get(`relatos-paciente/${pacienteId}/`),
     
     logout: () => {
       localStorage.removeItem('token');

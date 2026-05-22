@@ -6,7 +6,6 @@ import '../styles/Login.css';
 function Login() {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [lembrar, setLembrar] = useState(false);
   const [erro, setErro] = useState('');
   const navigate = useNavigate();
 
@@ -28,11 +27,6 @@ function Login() {
         crp,
         primeira_senha,
       }));
-
-      // Se marcou "lembrar", salva email
-      if (lembrar) {
-        localStorage.setItem('email', email);
-      }
 
       // Redireciona baseado no tipo
       if (tipo === 'psicologo') {
@@ -65,14 +59,6 @@ function Login() {
             onChange={(e) => setSenha(e.target.value)}
             required
           />
-          <label>
-            <input
-              type="checkbox"
-              checked={lembrar}
-              onChange={(e) => setLembrar(e.target.checked)}
-            />
-            Lembrar credenciais
-          </label>
           <button type="submit">Login</button>
         </form>
         <p>
