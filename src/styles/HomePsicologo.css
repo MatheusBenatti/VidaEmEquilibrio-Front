@@ -34,23 +34,24 @@
 
 .pacientes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
 
 .paciente-box, .adicionar-box {
   background: white;
-  border-radius: 8px;
-  padding: 1.5rem;
-  text-align: center;
+  border-radius: 12px;
+  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 .paciente-box:hover, .adicionar-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
 .adicionar-box {
@@ -70,15 +71,85 @@
   margin-bottom: 0.5rem;
 }
 
-.paciente-box h3 {
-  margin-top: 0;
-  color: #2c3e50;
+.paciente-card-body {
+  display: flex;
+  align-items: flex-end;
+  gap: 0;
+  background: linear-gradient(135deg, #eaf0f6 0%, #f8f9fa 100%);
+  padding: 1.2rem 1.2rem 1rem;
+  border-bottom: 1px solid #e8ecf0;
 }
 
-.paciente-box p {
+.paciente-avatar-col {
+  width: 64px;
+  min-width: 64px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.paciente-avatar-svg {
+  width: 64px;
+  height: 90px;
+  display: block;
+}
+
+.paciente-info-col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 2px;
+}
+
+.paciente-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #3498db;
+  margin-bottom: 2px;
+}
+
+.paciente-info-col h3 {
+  margin: 0 0 3px;
+  color: #2c3e50;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paciente-info-col p {
   color: #7f8c8d;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-relatorio {
+  margin: 0.75rem 1rem;
+  padding: 8px 0;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  transition: background 0.2s;
+  width: calc(100% - 2rem);
+}
+
+.btn-relatorio:hover {
+  background: #3d5166;
 }
 
 .navbar div {
