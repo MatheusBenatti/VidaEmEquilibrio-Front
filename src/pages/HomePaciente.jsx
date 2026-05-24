@@ -4,14 +4,14 @@ import { authService } from '../services/api';
 import '../styles/HomePaciente.css';
 
 const AVATARES = [
-  require('../images/avatar-1.png'),
-  require('../images/avatar-2.png'),
-  require('../images/avatar-3.png'),
-  require('../images/avatar-4.png'),
-  require('../images/avatar-5.png'),
-  require('../images/avatar-6.png'),
-  require('../images/avatar-7.png'),
-  require('../images/avatar-8.png'),
+  require('../images/avatar-01.png'),
+  require('../images/avatar-02.png'),
+  require('../images/avatar-03.png'),
+  require('../images/avatar-04.png'),
+  require('../images/avatar-05.png'),
+  require('../images/avatar-06.png'),
+  require('../images/avatar-07.png'),
+  require('../images/avatar-08.png'),
 ];
 
 const getAvatarImg = (num) => AVATARES[(num || 1) - 1];
@@ -156,14 +156,12 @@ function HomePaciente() {
 
         {!mostrarMudarSenha && (
           <div className="tamagochi-layout">
-            <div className="tamagochi-screen">
-              <p className="tamagochi-nome">{paciente?.nome}</p>
-              <img
-                src={getAvatarImg(paciente?.avatar)}
-                alt="Seu avatar"
-                className="tamagochi-avatar"
-              />
-            </div>
+            <p className="tamagochi-nome">{paciente?.nome}</p>
+            <img
+              src={getAvatarImg(paciente?.avatar)}
+              alt="Seu avatar"
+              className="tamagochi-avatar"
+            />
 
             <div className="relato-area">
               <h3>Como foi seu dia?</h3>

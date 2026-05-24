@@ -4,14 +4,14 @@ import { authService } from '../services/api';
 import '../styles/HomePsicologo.css';
 
 const AVATARES = [
-  require('../images/avatar-1.png'),
-  require('../images/avatar-2.png'),
-  require('../images/avatar-3.png'),
-  require('../images/avatar-4.png'),
-  require('../images/avatar-5.png'),
-  require('../images/avatar-6.png'),
-  require('../images/avatar-7.png'),
-  require('../images/avatar-8.png'),
+  require('../images/avatar-01.png'),
+  require('../images/avatar-02.png'),
+  require('../images/avatar-03.png'),
+  require('../images/avatar-04.png'),
+  require('../images/avatar-05.png'),
+  require('../images/avatar-06.png'),
+  require('../images/avatar-07.png'),
+  require('../images/avatar-08.png'),
 ];
 
 const getAvatarImg = (num) => AVATARES[(num || 1) - 1];
@@ -84,6 +84,23 @@ function HomePsicologo() {
     }
   };
 
+  const exportarCSV = () => {
+    if (!relatos.length || !modalRelatorio) return;
+
+    const csvContent = [
+      ['#', 'Data e Hora', 'Relato'],
+      ...relatos.map((r, i) => [relatos.length - i, r.criado_em, `"${r.texto.replace(/"/g, '""')}"`])
+    ].map(row => row.join(',')).join('\n');
+
+    const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `relatos_${modalRelatorio.nome.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleLogout = () => {
     authService.logout();
     navigate('/login');
@@ -137,7 +154,14 @@ function HomePsicologo() {
           <div className="modal-relatorio" onClick={(e) => e.stopPropagation()}>
             <div className="modal-relatorio-header">
               <h2>Relatos — {modalRelatorio.nome}</h2>
-              <button className="btn-fechar" onClick={() => setModalRelatorio(null)}>✕</button>
+              <div className="header-actions">
+                {!carregandoRelatos && relatos.length > 0 && (
+                  <button className="btn-exportar" onClick={exportarCSV}>
+                    Exportar CSV
+                  </button>
+                )}
+                <button className="btn-fechar" onClick={() => setModalRelatorio(null)}>✕</button>
+              </div>
             </div>
             {carregandoRelatos ? (
               <p className="relatorio-loading">Carregando relatos...</p>

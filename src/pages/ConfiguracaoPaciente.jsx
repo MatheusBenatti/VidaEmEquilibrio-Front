@@ -4,14 +4,14 @@ import { authService } from '../services/api';
 import '../styles/ConfiguracaoPaciente.css';
 
 const AVATARES = [
-  { num: 1, img: require('../images/avatar-1.png'), nome: 'Avatar 1' },
-  { num: 2, img: require('../images/avatar-2.png'), nome: 'Avatar 2' },
-  { num: 3, img: require('../images/avatar-3.png'), nome: 'Avatar 3' },
-  { num: 4, img: require('../images/avatar-4.png'), nome: 'Avatar 4' },
-  { num: 5, img: require('../images/avatar-5.png'), nome: 'Avatar 5' },
-  { num: 6, img: require('../images/avatar-6.png'), nome: 'Avatar 6' },
-  { num: 7, img: require('../images/avatar-7.png'), nome: 'Avatar 7' },
-  { num: 8, img: require('../images/avatar-8.png'), nome: 'Avatar 8' },
+  { num: 1, img: require('../images/avatar-01.png'), nome: 'Avatar 1' },
+  { num: 2, img: require('../images/avatar-02.png'), nome: 'Avatar 2' },
+  { num: 3, img: require('../images/avatar-03.png'), nome: 'Avatar 3' },
+  { num: 4, img: require('../images/avatar-04.png'), nome: 'Avatar 4' },
+  { num: 5, img: require('../images/avatar-05.png'), nome: 'Avatar 5' },
+  { num: 6, img: require('../images/avatar-06.png'), nome: 'Avatar 6' },
+  { num: 7, img: require('../images/avatar-07.png'), nome: 'Avatar 7' },
+  { num: 8, img: require('../images/avatar-08.png'), nome: 'Avatar 8' },
 ];
 
 const AvatarCard = ({ avatar, selecionado, onClick }) => (

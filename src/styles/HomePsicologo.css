@@ -91,12 +91,10 @@
 }
 
 .paciente-avatar-svg {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
   border-radius: 50%;
-  background: rgba(255,255,255,0.6);
-  padding: 4px;
   display: block;
 }
 
@@ -310,6 +308,28 @@
 
 .btn-fechar:hover {
   color: #e74c3c;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-exportar {
+  padding: 8px 16px;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.btn-exportar:hover {
+  background: #219a52;
 }
 
 .relatorio-loading,
