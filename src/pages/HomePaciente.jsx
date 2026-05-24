@@ -16,6 +16,14 @@ const AVATARES = [
 
 const getAvatarImg = (num) => AVATARES[(num || 1) - 1];
 
+const HUMORES = [
+  { key: 'muito_feliz', emoji: '😄', label: 'Muito feliz' },
+  { key: 'feliz', emoji: '🙂', label: 'Feliz' },
+  { key: 'neutro', emoji: '😐', label: 'Neutro' },
+  { key: 'triste', emoji: '🙁', label: 'Triste' },
+  { key: 'muito_triste', emoji: '😢', label: 'Muito triste' },
+];
+
 function HomePaciente() {
   const [paciente, setPaciente] = useState(null);
   const [mostrarMudarSenha, setMostrarMudarSenha] = useState(false);
@@ -26,9 +34,14 @@ function HomePaciente() {
   const [sucesso, setSucesso] = useState('');
   const [carregando, setCarregando] = useState(false);
   const [textoRelato, setTextoRelato] = useState('');
+  const [humorSelecionado, setHumorSelecionado] = useState('neutro');
+  const [mostrarEmojis, setMostrarEmojis] = useState(false);
   const [erroRelato, setErroRelato] = useState('');
   const [sucessoRelato, setSucessoRelato] = useState('');
   const [salvandoRelato, setSalvandoRelato] = useState(false);
+  const [diasCalendario, setDiasCalendario] = useState([]);
+  const [diaSelecionado, setDiaSelecionado] = useState(null);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,6 +57,19 @@ function HomePaciente() {
         navigate('/configurar-perfil');
       }
     }
+  }, []);
+
+  const carregarCalendario = async () => {
+    try {
+      const response = await authService.meusRelatosCalendario();
+      setDiasCalendario(response.data.dias || []);
+    } catch (error) {
+      console.error('Erro ao carregar calendário:', error);
+    }
+  };
+
+  useEffect(() => {
+    carregarCalendario();
   }, []);
 
   const handleMudarSenha = async (e) => {
@@ -90,9 +116,12 @@ function HomePaciente() {
     }
     setSalvandoRelato(true);
     try {
-      await authService.salvarRelato(textoRelato.trim());
+      await authService.salvarRelato(textoRelato.trim(), humorSelecionado);
       setSucessoRelato('Relato salvo!');
       setTextoRelato('');
+      setHumorSelecionado('neutro');
+      setMostrarEmojis(false);
+      carregarCalendario();
       setTimeout(() => setSucessoRelato(''), 3000);
     } catch (error) {
       setErroRelato(error.response?.data?.error || 'Erro ao salvar relato');
@@ -155,36 +184,185 @@ function HomePaciente() {
         )}
 
         {!mostrarMudarSenha && (
-          <div className="tamagochi-layout">
-            <p className="tamagochi-nome">{paciente?.nome}</p>
-            <img
-              src={getAvatarImg(paciente?.avatar)}
-              alt="Seu avatar"
-              className="tamagochi-avatar"
+          <div className="main-content">
+            <div className="left-column">
+              <p className="tamagochi-nome">{paciente?.nome}</p>
+              <img
+                src={getAvatarImg(paciente?.avatar)}
+                alt="Seu avatar"
+                className="tamagochi-avatar"
+              />
+
+              <div className="relato-area">
+                <h3>Como foi seu dia?</h3>
+                <form onSubmit={handleSalvarRelato}>
+                  <textarea
+                    placeholder="Escreva seu relato aqui..."
+                    value={textoRelato}
+                    onChange={(e) => setTextoRelato(e.target.value)}
+                    rows={4}
+                    maxLength={1000}
+                  />
+                  <div className="relato-footer">
+                    <div className="humor-section">
+                      <div
+                        className="humor-selecionado"
+                        onClick={() => setMostrarEmojis(!mostrarEmojis)}
+                      >
+                        {HUMORES.find(h => h.key === humorSelecionado)?.emoji} Como você está?
+                      </div>
+                      {mostrarEmojis && (
+                        <div className="humor-picker">
+                          {HUMORES.map((h) => (
+                            <button
+                              key={h.key}
+                              type="button"
+                              className={`humor-emoji ${humorSelecionado === h.key ? 'ativo' : ''}`}
+                              onClick={() => {
+                                setHumorSelecionado(h.key);
+                                setMostrarEmojis(false);
+                              }}
+                              title={h.label}
+                            >
+                              {h.emoji}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <span className="char-count">{textoRelato.length}/1000</span>
+                    {erroRelato && <p className="erro">{erroRelato}</p>}
+                    {sucessoRelato && <p className="sucesso">{sucessoRelato}</p>}
+                    <button type="submit" disabled={salvandoRelato}>
+                      {salvandoRelato ? 'Salvando...' : 'Salvar relato'}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <CalendarioRelatos
+              dias={diasCalendario}
+              currentMonth={currentMonth}
+              setCurrentMonth={setCurrentMonth}
+              onDiaClick={setDiaSelecionado}
             />
 
-            <div className="relato-area">
-              <h3>Como foi seu dia?</h3>
-              <form onSubmit={handleSalvarRelato}>
-                <textarea
-                  placeholder="Escreva seu relato aqui..."
-                  value={textoRelato}
-                  onChange={(e) => setTextoRelato(e.target.value)}
-                  rows={4}
-                  maxLength={1000}
-                />
-                <div className="relato-footer">
-                  <span className="char-count">{textoRelato.length}/1000</span>
-                  {erroRelato && <p className="erro">{erroRelato}</p>}
-                  {sucessoRelato && <p className="sucesso">{sucessoRelato}</p>}
-                  <button type="submit" disabled={salvandoRelato}>
-                    {salvandoRelato ? 'Salvando...' : 'Salvar relato'}
-                  </button>
-                </div>
-              </form>
-            </div>
+            {diaSelecionado && (
+              <ModalDiaRelatos
+                dia={diaSelecionado}
+                onClose={() => setDiaSelecionado(null)}
+              />
+            )}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+// Componente do Calendário
+function CalendarioRelatos({ dias, currentMonth, setCurrentMonth, onDiaClick }) {
+  const HUMOR_EMOJIS = {
+    'muito_feliz': '😄',
+    'feliz': '🙂',
+    'neutro': '😐',
+    'triste': '🙁',
+    'muito_triste': '😢',
+  };
+
+  const diasMap = {};
+  dias.forEach(d => {
+    diasMap[d.data_iso] = d;
+  });
+
+  const year = currentMonth.getFullYear();
+  const month = currentMonth.getMonth();
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const daysInMonth = lastDay.getDate();
+  const startDayOfWeek = firstDay.getDay();
+
+  const prevMonth = () => setCurrentMonth(new Date(year, month - 1, 1));
+  const nextMonth = () => setCurrentMonth(new Date(year, month + 1, 1));
+
+  const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  const weekDays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+  const days = [];
+  for (let i = 0; i < startDayOfWeek; i++) {
+    days.push(null);
+  }
+  for (let i = 1; i <= daysInMonth; i++) {
+    days.push(i);
+  }
+
+  return (
+    <div className="calendario-container">
+      <div className="calendario-header">
+        <button onClick={prevMonth}>←</button>
+        <h3>{monthNames[month]} {year}</h3>
+        <button onClick={nextMonth}>→</button>
+      </div>
+      <div className="calendario-grid">
+        {weekDays.map(d => <div key={d} className="calendario-weekday">{d}</div>)}
+        {days.map((day, idx) => {
+          if (!day) return <div key={idx} className="calendario-day empty"></div>;
+          const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+          const diaData = diasMap[dateStr];
+          return (
+            <div
+              key={idx}
+              className={`calendario-day ${diaData ? 'has-relatos' : ''}`}
+              onClick={() => diaData && onDiaClick(diaData)}
+            >
+              <span className="day-number">{day}</span>
+              {diaData && (
+                <span className="day-emoji">{HUMOR_EMOJIS[diaData.humor_mais_frequente]}</span>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// Componente do Modal de Relatos do Dia
+function ModalDiaRelatos({ dia, onClose }) {
+  const HUMOR_EMOJIS = {
+    'muito_feliz': '😄',
+    'feliz': '🙂',
+    'neutro': '😐',
+    'triste': '🙁',
+    'muito_triste': '😢',
+  };
+
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-dia-relatos" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h3>Relatos de {dia.data}</h3>
+          <button className="btn-fechar" onClick={onClose}>✕</button>
+        </div>
+        <div className="modal-content">
+          {dia.relatos.length === 0 ? (
+            <p>Nenhum relato para este dia.</p>
+          ) : (
+            <div className="relatos-lista">
+              {dia.relatos.map((relato) => (
+                <div key={relato.id} className="relato-item">
+                  <div className="relato-header">
+                    <span className="relato-hora">{relato.criado_em}</span>
+                    <span className="relato-humor">{HUMOR_EMOJIS[relato.humor]}</span>
+                  </div>
+                  <p className="relato-texto">{relato.texto}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

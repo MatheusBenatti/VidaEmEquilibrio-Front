@@ -28,7 +28,16 @@ function HomePsicologo() {
   const [modalRelatorio, setModalRelatorio] = useState(null);
   const [relatos, setRelatos] = useState([]);
   const [carregandoRelatos, setCarregandoRelatos] = useState(false);
+  const [humorMaisFrequente, setHumorMaisFrequente] = useState(null);
   const navigate = useNavigate();
+
+  const HUMOR_EMOJIS = {
+    'muito_feliz': '😄',
+    'feliz': '🙂',
+    'neutro': '😐',
+    'triste': '🙁',
+    'muito_triste': '😢',
+  };
 
   useEffect(() => {
     const userInfo = localStorage.getItem('userInfo');
@@ -77,6 +86,7 @@ function HomePsicologo() {
     try {
       const response = await authService.relatosPaciente(paciente.id);
       setRelatos(response.data.relatos);
+      setHumorMaisFrequente(response.data.humor_mais_frequente);
     } catch (error) {
       console.error('Erro ao carregar relatos:', error);
     } finally {
@@ -88,8 +98,10 @@ function HomePsicologo() {
     if (!relatos.length || !modalRelatorio) return;
 
     const csvContent = [
-      ['#', 'Data e Hora', 'Relato'],
-      ...relatos.map((r, i) => [relatos.length - i, r.criado_em, `"${r.texto.replace(/"/g, '""')}"`])
+      ['#', 'Data e Hora', 'Humor', 'Relato'],
+      ...relatos.map((r, i) => [relatos.length - i, r.criado_em, HUMOR_EMOJIS[r.humor] || '-', `"${r.texto.replace(/"/g, '""')}"`]),
+      [],
+      ['Humor mais frequente:', HUMOR_EMOJIS[humorMaisFrequente] || '-']
     ].map(row => row.join(',')).join('\n');
 
     const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -174,6 +186,7 @@ function HomePsicologo() {
                     <tr>
                       <th>#</th>
                       <th>Data e Hora</th>
+                      <th>Humor</th>
                       <th>Relato</th>
                     </tr>
                   </thead>
@@ -182,11 +195,20 @@ function HomePsicologo() {
                       <tr key={r.id}>
                         <td>{relatos.length - i}</td>
                         <td className="td-data">{r.criado_em}</td>
+                        <td className="td-humor">{HUMOR_EMOJIS[r.humor]}</td>
                         <td className="td-texto">{r.texto}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                {humorMaisFrequente && (
+                  <div className="humor-resumo">
+                    <strong>Humor mais frequente:</strong>{' '}
+                    <span className="humor-destaque">
+                      {HUMOR_EMOJIS[humorMaisFrequente]} {humorMaisFrequente.replace('_', ' ')}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -53,11 +53,14 @@ export const authService = {
       api.post('configurar-perfil/', { nome, avatar }),
 
     // Relatos
-    salvarRelato: (texto) =>
-      api.post('salvar-relato/', { texto }),
+    salvarRelato: (texto, humor) =>
+      api.post('salvar-relato/', { texto, humor }),
 
     relatosPaciente: (pacienteId) =>
       api.get(`relatos-paciente/${pacienteId}/`),
+
+    meusRelatosCalendario: () =>
+      api.get('meus-relatos-calendario/'),
     
     logout: () => {
       localStorage.removeItem('token');
