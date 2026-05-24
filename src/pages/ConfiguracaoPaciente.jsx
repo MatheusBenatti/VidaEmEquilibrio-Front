@@ -3,40 +3,26 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
 import '../styles/ConfiguracaoPaciente.css';
 
-const AvatarMasculino = ({ selecionado, onClick }) => (
-  <div className={`avatar-card ${selecionado ? 'selecionado' : ''}`} onClick={onClick}>
-    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg" className="avatar-svg">
-      <polygon points="50,8 62,28 38,28" fill="#b0b8c1" />
-      <circle cx="50" cy="38" r="18" fill="#c8d0d8" />
-      <polygon points="50,56 28,90 72,90" fill="#a8b4be" />
-      <polygon points="28,90 20,130 42,130 50,95 58,130 80,130 72,90" fill="#b0b8c1" />
-      <polygon points="28,90 20,130 28,130" fill="#9aa8b4" />
-      <polygon points="72,90 80,130 72,130" fill="#9aa8b4" />
-      <line x1="28" y1="90" x2="14" y2="116" stroke="#b0b8c1" strokeWidth="8" strokeLinecap="round" />
-      <line x1="72" y1="90" x2="86" y2="116" stroke="#b0b8c1" strokeWidth="8" strokeLinecap="round" />
-    </svg>
-    <span>Masculino</span>
-  </div>
-);
+const AVATARES = [
+  { num: 1, img: require('../images/avatar-1.png'), nome: 'Avatar 1' },
+  { num: 2, img: require('../images/avatar-2.png'), nome: 'Avatar 2' },
+  { num: 3, img: require('../images/avatar-3.png'), nome: 'Avatar 3' },
+  { num: 4, img: require('../images/avatar-4.png'), nome: 'Avatar 4' },
+  { num: 5, img: require('../images/avatar-5.png'), nome: 'Avatar 5' },
+  { num: 6, img: require('../images/avatar-6.png'), nome: 'Avatar 6' },
+  { num: 7, img: require('../images/avatar-7.png'), nome: 'Avatar 7' },
+  { num: 8, img: require('../images/avatar-8.png'), nome: 'Avatar 8' },
+];
 
-const AvatarFeminino = ({ selecionado, onClick }) => (
+const AvatarCard = ({ avatar, selecionado, onClick }) => (
   <div className={`avatar-card ${selecionado ? 'selecionado' : ''}`} onClick={onClick}>
-    <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg" className="avatar-svg">
-      <polygon points="50,4 58,20 42,20" fill="#b0b8c1" />
-      <circle cx="50" cy="32" r="16" fill="#c8d0d8" />
-      <path d="M32,50 Q50,48 68,50 L76,95 H24 Z" fill="#a8b4be" />
-      <path d="M24,95 Q30,125 42,130 H58 Q70,125 76,95 Z" fill="#b0b8c1" />
-      <line x1="32" y1="52" x2="16" y2="80" stroke="#b0b8c1" strokeWidth="7" strokeLinecap="round" />
-      <line x1="68" y1="52" x2="84" y2="80" stroke="#b0b8c1" strokeWidth="7" strokeLinecap="round" />
-      <ellipse cx="50" cy="22" rx="20" ry="10" fill="none" stroke="#9aa8b4" strokeWidth="3" />
-    </svg>
-    <span>Feminino</span>
+    <img src={avatar.img} alt={avatar.nome} className="avatar-svg" />
   </div>
 );
 
 function ConfiguracaoPaciente() {
   const [nome, setNome] = useState('');
-  const [avatarSelecionado, setAvatarSelecionado] = useState('');
+  const [avatarSelecionado, setAvatarSelecionado] = useState(null);
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
@@ -67,7 +53,7 @@ function ConfiguracaoPaciente() {
     e.preventDefault();
     setErro('');
 
-    if (!avatarSelecionado) {
+    if (avatarSelecionado === null) {
       setErro('Selecione um avatar para continuar');
       return;
     }
@@ -118,15 +104,15 @@ function ConfiguracaoPaciente() {
 
           <div className="avatar-section">
             <label>Escolha seu avatar</label>
-            <div className="avatares-grid">
-              <AvatarMasculino
-                selecionado={avatarSelecionado === 'masculino'}
-                onClick={() => setAvatarSelecionado('masculino')}
-              />
-              <AvatarFeminino
-                selecionado={avatarSelecionado === 'feminino'}
-                onClick={() => setAvatarSelecionado('feminino')}
-              />
+            <div className="avatares-grid-8">
+              {AVATARES.map((avatar) => (
+                <AvatarCard
+                  key={avatar.num}
+                  avatar={avatar}
+                  selecionado={avatarSelecionado === avatar.num}
+                  onClick={() => setAvatarSelecionado(avatar.num)}
+                />
+              ))}
             </div>
           </div>
 

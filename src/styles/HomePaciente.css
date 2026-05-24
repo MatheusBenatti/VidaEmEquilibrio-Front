@@ -70,9 +70,9 @@
 }
 
 .tamagochi-avatar {
-  width: 180px;
-  height: 252px;
-  margin-bottom: -30px;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
   filter: drop-shadow(0 -4px 16px rgba(0,0,0,0.3));
 }
 

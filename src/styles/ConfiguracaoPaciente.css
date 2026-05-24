@@ -72,6 +72,13 @@
   margin-top: 0.8rem;
 }
 
+.avatares-grid-8 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
 .avatar-card {
   display: flex;
   flex-direction: column;
@@ -101,7 +108,10 @@
 
 .avatar-svg {
   width: 90px;
-  height: 126px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #f0f4f8;
 }
 
 .avatar-card span {
