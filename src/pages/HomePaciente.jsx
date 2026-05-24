@@ -148,37 +148,50 @@ function HomePaciente() {
       <div className="container">
         {mostrarMudarSenha && (
           <div className="modal-overlay">
-            <div className="modal-content">
-              <h2>Altere sua Senha</h2>
-              <p>Você precisa alterar sua senha temporária antes de continuar.</p>
-              {erro && <p className="erro">{erro}</p>}
-              {sucesso && <p className="sucesso">{sucesso}</p>}
-              <form onSubmit={handleMudarSenha}>
-                <input
-                  type="password"
-                  placeholder="Senha atual (temporária)"
-                  value={senhaAtual}
-                  onChange={(e) => setSenhaAtual(e.target.value)}
-                  required
-                />
-                <input
-                  type="password"
-                  placeholder="Nova senha (mínimo 8 caracteres)"
-                  value={novaSenha}
-                  onChange={(e) => setNovaSenha(e.target.value)}
-                  required
-                />
-                <input
-                  type="password"
-                  placeholder="Confirmar nova senha"
-                  value={confirmarSenha}
-                  onChange={(e) => setConfirmarSenha(e.target.value)}
-                  required
-                />
-                <button type="submit" disabled={carregando}>
-                  {carregando ? 'Alterando...' : 'Alterar Senha'}
-                </button>
-              </form>
+            <div className="modal-card modal-senha">
+              <div className="modal-header-purple">
+                <h2>🔐 Altere sua Senha</h2>
+                <p>Você precisa alterar sua senha temporária antes de continuar.</p>
+              </div>
+              <div className="modal-body">
+                {erro && <p className="erro">{erro}</p>}
+                {sucesso && <p className="sucesso">{sucesso}</p>}
+                <form onSubmit={handleMudarSenha}>
+                  <div className="input-group">
+                    <label>Senha atual (temporária)</label>
+                    <input
+                      type="password"
+                      placeholder="Digite a senha temporária"
+                      value={senhaAtual}
+                      onChange={(e) => setSenhaAtual(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-group">
+                    <label>Nova senha</label>
+                    <input
+                      type="password"
+                      placeholder="Mínimo 8 caracteres"
+                      value={novaSenha}
+                      onChange={(e) => setNovaSenha(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="input-group">
+                    <label>Confirmar nova senha</label>
+                    <input
+                      type="password"
+                      placeholder="Repita a nova senha"
+                      value={confirmarSenha}
+                      onChange={(e) => setConfirmarSenha(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <button type="submit" className="btn-primary" disabled={carregando}>
+                    {carregando ? 'Alterando...' : 'Alterar Senha'}
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         )}

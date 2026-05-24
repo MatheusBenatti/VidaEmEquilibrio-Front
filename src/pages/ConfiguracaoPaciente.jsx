@@ -85,6 +85,7 @@ function ConfiguracaoPaciente() {
     <div className="configuracao-container">
       <div className="configuracao-box">
         <div className="configuracao-header">
+          <div className="configuracao-header-icon">🧘</div>
           <h1>Vida em Equilíbrio</h1>
           <p className="subtitulo">Vamos personalizar seu perfil</p>
         </div>

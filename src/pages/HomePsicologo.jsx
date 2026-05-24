@@ -218,34 +218,44 @@ function HomePsicologo() {
       {mostrarModal && (
         <div className="modal-overlay" onClick={() => setMostrarModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Adicionar Paciente</h2>
-            <p>O paciente receberá um email com as credenciais de acesso.</p>
-            {erro && <p className="erro">{erro}</p>}
-            {sucesso && <p className="sucesso">{sucesso}</p>}
-            <form onSubmit={handleAdicionarPaciente}>
-              <input
-                type="text"
-                placeholder="Nome do paciente"
-                value={nomePaciente}
-                onChange={(e) => setNomePaciente(e.target.value)}
-                required
-              />
-              <input
-                type="email"
-                placeholder="Email do paciente"
-                value={emailPaciente}
-                onChange={(e) => setEmailPaciente(e.target.value)}
-                required
-              />
-              <div className="modal-buttons">
-                <button type="submit" disabled={carregando}>
-                  {carregando ? 'Adicionando...' : 'Adicionar'}
-                </button>
-                <button type="button" className="btn-cancelar" onClick={() => setMostrarModal(false)}>
-                  Cancelar
-                </button>
-              </div>
-            </form>
+            <div className="modal-header">
+              <h2>➕ Adicionar Paciente</h2>
+              <p>O paciente receberá um email com as credenciais de acesso.</p>
+            </div>
+            <div className="modal-body">
+              {erro && <p className="erro">{erro}</p>}
+              {sucesso && <p className="sucesso">{sucesso}</p>}
+              <form onSubmit={handleAdicionarPaciente}>
+                <div className="input-group">
+                  <label>Nome do paciente</label>
+                  <input
+                    type="text"
+                    placeholder="Como o paciente quer ser chamado"
+                    value={nomePaciente}
+                    onChange={(e) => setNomePaciente(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="input-group">
+                  <label>Email do paciente</label>
+                  <input
+                    type="email"
+                    placeholder="paciente@email.com"
+                    value={emailPaciente}
+                    onChange={(e) => setEmailPaciente(e.target.value)}
+                    required
+                  />
+                </div>
+                <div className="modal-buttons">
+                  <button type="submit" disabled={carregando}>
+                    {carregando ? 'Adicionando...' : 'Adicionar'}
+                  </button>
+                  <button type="button" className="btn-cancelar" onClick={() => setMostrarModal(false)}>
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       )}

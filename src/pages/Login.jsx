@@ -42,28 +42,42 @@ function Login() {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2>Login</h2>
+        <div className="login-brand">
+          <div className="login-brand-icon">🧘</div>
+          <h1>Vida em <span>Equilíbrio</span></h1>
+        </div>
+        <p className="login-subtitle">Faça login para continuar sua jornada de bem-estar</p>
         {erro && <p className="erro">{erro}</p>}
         <form onSubmit={handleLogin}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <input
-            type="password"
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            required
-          />
-          <button type="submit">Login</button>
+          <div className="input-group">
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label htmlFor="senha">Senha</label>
+            <input
+              id="senha"
+              type="password"
+              placeholder="••••••••"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Entrar</button>
         </form>
-        <p>
-          Cadastro para psicólogos  <a href="/cadastro">Cadastre-se aqui</a>
-        </p>
+        <div className="login-footer">
+          <p>
+            É psicólogo? <a href="/cadastro">Cadastre-se aqui</a>
+          </p>
+        </div>
       </div>
     </div>
   );
