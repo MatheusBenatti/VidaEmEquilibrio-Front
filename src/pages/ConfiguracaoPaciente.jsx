@@ -47,6 +47,7 @@ function ConfiguracaoPaciente() {
       }
       setNome(user.nome || '');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleConfirmar = async (e) => {
