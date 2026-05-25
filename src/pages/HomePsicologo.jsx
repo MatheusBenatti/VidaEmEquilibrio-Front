@@ -63,8 +63,9 @@ function HomePsicologo() {
     setCarregando(true);
 
     try {
-      await authService.adicionarPaciente(emailPaciente, nomePaciente);
-      setSucesso('Paciente adicionado! Convite enviado para o e-mail cadastrado.');
+      const response = await authService.adicionarPaciente(emailPaciente, nomePaciente);
+      const senhaTemp = response.data.senha_temporaria;
+      setSucesso(`Paciente adicionado! Senha temporária: ${senhaTemp}`);
       setEmailPaciente('');
       setNomePaciente('');
       carregarPacientes();
