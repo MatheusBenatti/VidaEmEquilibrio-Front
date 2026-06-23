@@ -107,7 +107,7 @@
 
 .avatares-grid-8 {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
   margin-top: var(--space-3);
 }
@@ -125,6 +125,7 @@
   background: var(--gray-50);
   overflow: hidden;
   user-select: none;
+  font: inherit;
 }
 
 .avatar-card:hover {
@@ -140,13 +141,11 @@
   box-shadow: 0 0 0 4px var(--primary-200);
 }
 
-.avatar-svg {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid white;
+.avatar3d-opcao {
+  width: 100%;
+  max-width: 160px;
   box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
 }
 
 .avatar-card span {
@@ -193,4 +192,14 @@
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+@media (max-width: 520px) {
+  .configuracao-box {
+    padding: var(--space-6);
+  }
+
+  .avatares-grid-8 {
+    grid-template-columns: 1fr;
+  }
 }

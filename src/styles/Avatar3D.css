@@ -1,0 +1,25 @@
+.avatar3d {
+  position: relative;
+  width: min(100%, 280px);
+  aspect-ratio: 1;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(180deg, var(--bg-card) 0%, var(--primary-50) 100%);
+  border: 1px solid var(--gray-100);
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+}
+
+.avatar3d canvas {
+  display: block;
+}
+
+.avatar3d-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  background: var(--primary-50);
+}

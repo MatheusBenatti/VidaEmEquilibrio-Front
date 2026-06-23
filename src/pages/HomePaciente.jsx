@@ -1,20 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
+import Avatar3D from '../components/Avatar3D';
 import '../styles/HomePaciente.css';
-
-const AVATARES = [
-  require('../images/avatar-01.png'),
-  require('../images/avatar-02.png'),
-  require('../images/avatar-03.png'),
-  require('../images/avatar-04.png'),
-  require('../images/avatar-05.png'),
-  require('../images/avatar-06.png'),
-  require('../images/avatar-07.png'),
-  require('../images/avatar-08.png'),
-];
-
-const getAvatarImg = (num) => AVATARES[(num || 1) - 1];
 
 const HUMORES = [
   { key: 'muito_feliz', emoji: '😄', label: 'Muito feliz' },
@@ -201,11 +189,7 @@ function HomePaciente() {
           <div className="main-content">
             <div className="left-column">
               <p className="tamagochi-nome">{paciente?.nome}</p>
-              <img
-                src={getAvatarImg(paciente?.avatar)}
-                alt="Seu avatar"
-                className="tamagochi-avatar"
-              />
+              <Avatar3D type={paciente?.avatar} />
 
               <div className="relato-area">
                 <h3>Como foi seu dia?</h3>

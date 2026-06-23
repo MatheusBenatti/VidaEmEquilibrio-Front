@@ -52,6 +52,10 @@ export const authService = {
     configurarPerfil: (nome, avatar) =>
       api.post('configurar-perfil/', { nome, avatar }),
 
+    // Atualizar avatar do paciente
+    atualizarAvatar: (avatar) =>
+      api.patch('atualizar-avatar/', { avatar }),
+
     // Relatos
     salvarRelato: (texto, humor) =>
       api.post('salvar-relato/', { texto, humor }),

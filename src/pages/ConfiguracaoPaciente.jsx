@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
+import Avatar3D from '../components/Avatar3D';
 import '../styles/ConfiguracaoPaciente.css';
 
 const AVATARES = [
-  { num: 1, img: require('../images/avatar-01.png'), nome: 'Avatar 1' },
-  { num: 2, img: require('../images/avatar-02.png'), nome: 'Avatar 2' },
-  { num: 3, img: require('../images/avatar-03.png'), nome: 'Avatar 3' },
-  { num: 4, img: require('../images/avatar-04.png'), nome: 'Avatar 4' },
-  { num: 5, img: require('../images/avatar-05.png'), nome: 'Avatar 5' },
-  { num: 6, img: require('../images/avatar-06.png'), nome: 'Avatar 6' },
-  { num: 7, img: require('../images/avatar-07.png'), nome: 'Avatar 7' },
-  { num: 8, img: require('../images/avatar-08.png'), nome: 'Avatar 8' },
+  { type: 'male', nome: 'Masculino' },
+  { type: 'female', nome: 'Feminino' },
 ];
 
 const AvatarCard = ({ avatar, selecionado, onClick }) => (
-  <div className={`avatar-card ${selecionado ? 'selecionado' : ''}`} onClick={onClick}>
-    <img src={avatar.img} alt={avatar.nome} className="avatar-svg" />
-  </div>
+  <button
+    type="button"
+    className={`avatar-card ${selecionado ? 'selecionado' : ''}`}
+    onClick={onClick}
+    aria-pressed={selecionado}
+  >
+    <Avatar3D type={avatar.type} className="avatar3d-opcao" />
+    <span>{avatar.nome}</span>
+  </button>
 );
 
 function ConfiguracaoPaciente() {
@@ -109,10 +110,10 @@ function ConfiguracaoPaciente() {
             <div className="avatares-grid-8">
               {AVATARES.map((avatar) => (
                 <AvatarCard
-                  key={avatar.num}
+                  key={avatar.type}
                   avatar={avatar}
-                  selecionado={avatarSelecionado === avatar.num}
-                  onClick={() => setAvatarSelecionado(avatar.num)}
+                  selecionado={avatarSelecionado === avatar.type}
+                  onClick={() => setAvatarSelecionado(avatar.type)}
                 />
               ))}
             </div>
